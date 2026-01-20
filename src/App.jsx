@@ -4,7 +4,7 @@ import coin from './assets/gold-coin-money-symbol-icon.png';
 import Available from './Components/Available/Available';
 import { Suspense, useState } from 'react';
 import Selected from './Components/Selected/Selected';
-
+import { ToastContainer} from 'react-toastify';
 const dataFetch = async () => {
   const res =  await fetch('/players.json');
   return res.json()
@@ -14,7 +14,7 @@ const dataFetch = async () => {
 const fetchPlayer = dataFetch();
 function App() {
   const [toggle , setToggle] = useState(true);
- const [fund , setFund] = useState(15)
+ const [fund , setFund] = useState(18)
 const [purchases,setPurchased] = useState([])
 
 const handleRemove = (p) =>
@@ -38,7 +38,7 @@ const handleRemove = (p) =>
               <Available key ={fetchPlayer.id} fetchPlayer = {fetchPlayer} setFund ={setFund} purchases = {purchases} fund ={fund} setPurchased = {setPurchased}></Available>
       </Suspense> : <Selected handleRemove = {handleRemove} purchases = {purchases}></Selected>
       }
-      
+       <ToastContainer />
     </>
   )
 }

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import userImg from '../../assets/Group.png';
 import flag from '../../assets/flag.png';
+import { toast } from 'react-toastify';
 const Player = ({player , setFund , fund ,purchases, setPurchased}) => {
     const [status, setStatus] = useState(false);
     return (
@@ -32,10 +33,22 @@ const Player = ({player , setFund , fund ,purchases, setPurchased}) => {
      </div>
     <div className="card-actions flex justify-between items-center">
        <h2 className='font-bold '>Price : $ {player.price}M</h2> 
-      <button disabled ={status} onClick={()=>{setStatus(true);
-        const remaining = fund-player.price;
-       fund > player.price ? setFund(remaining) : alert("Run out of money");
-       purchases.id !== player.id ? setPurchased([...purchases,player]) : alert("Player already Selected")
+      <button disabled ={status} onClick={()=>{
+       if (purchases.length >= 6) {
+              toast("you can't add more players");
+             return;
+        } 
+        
+      else if (purchases.some(p => p.id === player.id))
+        {
+              toast("Already Added ! why are you adding it twice ?");
+             return;
+        } 
+          const remaining = fund-player.price;
+          fund > player.price ? setFund(remaining) : toast("Run out of money");
+          setPurchased(prev => [...prev, player]);
+          setStatus(true);
+
     }} className="btn btn-sm">{status ? "Selected" : "Choose Player "}</button>
     </div>
   </div>
