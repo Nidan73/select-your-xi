@@ -1,10 +1,19 @@
 import React from 'react';
+import Sold from './sold';
+const Selected = ({purchases , handleRemove}) => {
 
-const Selected = () => {
     return (
-        <div>
-            
-        </div>
+
+<div>
+        {
+                 
+          purchases.map(purchase => <Sold handleRemove ={handleRemove} purchase = {purchase}></Sold>
+
+
+          )
+        }
+             </div>
+        
     );
 };
 

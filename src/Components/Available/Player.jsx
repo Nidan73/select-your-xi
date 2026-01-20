@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import userImg from '../../assets/Group.png';
 import flag from '../../assets/flag.png';
-const Player = ({player}) => {
+const Player = ({player , setFund , fund ,purchases, setPurchased}) => {
+    const [status, setStatus] = useState(false);
     return (
-            <div className="card bg-base-100 w-96 shadow-sm">
+            <div className="card bg-base-100 shadow-sm">
   <figure>
-    <img className='p-4 w-full rounded-5xl bg-amber-50'
+    <img className='p-4 w-full h-100 object-cover'
       src={player.image}
       alt="virat kholi" />
   </figure>
@@ -31,13 +32,14 @@ const Player = ({player}) => {
      </div>
     <div className="card-actions flex justify-between items-center">
        <h2 className='font-bold '>Price : $ {player.price}M</h2> 
-      <button className="btn btn-sm">Choose Player</button>
+      <button disabled ={status} onClick={()=>{setStatus(true);
+        const remaining = fund-player.price;
+       fund > player.price ? setFund(remaining) : alert("Run out of money");
+       purchases.id !== player.id ? setPurchased([...purchases,player]) : alert("Player already Selected")
+    }} className="btn btn-sm">{status ? "Selected" : "Choose Player "}</button>
     </div>
   </div>
-</div>
-             
-        
-    );
+</div>);
 };
 
 export default Player;
